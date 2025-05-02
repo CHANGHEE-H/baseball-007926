@@ -19,11 +19,39 @@ public:
 		if (guessNum == answer) {
 			return { true, 3, 0 };
 		}
+		else {
+			return { false, getStrikes(guessNum), getBalls(guessNum) };
+		}
 
 		return { false, 0, 0 };
 	}
 private:
 	string answer;
+
+	int getStrikes(const string& guessNum) {
+		int ret = 0;
+		for (int i = 0; i < 3; i++) {
+			if (guessNum[i] == answer[i]) {
+				ret++;
+			}	
+		}
+
+		return ret;
+	}
+
+	int getBalls(const string& guessNum) {
+		int ret = 0;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (i == j) continue;
+
+				if (guessNum[i] == answer[j]) {
+					ret++;
+				}
+			}
+		}
+		return ret;
+	}
 
 	bool isDup(const string& guessNum) {
 		return (guessNum[0] == guessNum[1] ||
