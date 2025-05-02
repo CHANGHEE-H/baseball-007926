@@ -3,7 +3,7 @@
 
 class BaseballFixture : public testing::Test {
 public:
-	Baseball game;
+	Baseball game{ "123" };
 	void assertIllegalArgument(string guessNumber) {
 		try {
 			game.guess(string(guessNumber));
@@ -14,6 +14,14 @@ public:
 		}
 	}
 };
+
+TEST_F(BaseballFixture, GuessSuccess) {
+	GuessResult ret = game.guess("123");
+
+	EXPECT_TRUE(ret.solved);
+	EXPECT_EQ(3, ret.strikes);
+	EXPECT_EQ(0, ret.balls);
+}
 
 TEST_F(BaseballFixture, ThrowInvalidCaseException) {
 	assertIllegalArgument("12");
